@@ -21,8 +21,6 @@ All experiments generate synthetic data, initialize factors, run each method for
 - **PyTorch:** 2.5.1 (built with CUDA 12.4)
 - **NumPy:** 1.26.4
 
-Linear systems are solved via Conjugate Gradient (max 100 iterations, tolerance = 1e-25) using implicit \(\nabla F^T\nabla F\) actions except in nonnegative least squares (direct closed-form computation available).
-
 **System Packages (for LaTeX support in plots and notebooks):**
 
 | Package                   | Version (Ubuntu 22.04 LTS, June 2024) |
@@ -54,19 +52,6 @@ Linear systems are solved via Conjugate Gradient (max 100 iterations, tolerance 
    ```bash
    pip install -e .
 
-## Configuration
-
-Set your output directory before running any code:
-
-```bash
-export SAVE_PATH=/path/to/where/you/want/results
-```
-
-All logs and plots will be saved under:
-
-```
-$SAVE_PATH/experiment_results/...
-```
 
 ## Experiment Data Structures
 
@@ -74,8 +59,8 @@ $SAVE_PATH/experiment_results/...
 
 A **list of ****\`\`**** tuples** specifying problem instances:
 
-- `r`: rank or over‑parameterization level
-- `κ`: condition number of the measurement operator
+- `r`: rank of factors. Overparameterization when r > r_true.
+- `κ`: condition number of ground truth.
 
 Used by both:
 
@@ -116,32 +101,35 @@ Open `main.ipynb` and execute the following sections in order:
 - **Model:** Symmetric matrix factorization
 - **Settings:** `n1=n2=50`, `r_true=2`, `tensor=False`, `symmetric=True`
 - **Runner:** `run_matrix_tensor_sensing_experiments(...)` with Polyak stepsizes until divergence
-- **Output:** `$SAVE_PATH/experiment_results/polyak/matrixsym/`
+- **Output:** `$save_dir/experiment_results/polyak/`
 
 ### Experiment 1: Exact Observations with Polyak Stepsizes
 
-- **Problem:** Nonnegative least squares
-- **Setups:** `[(r_true,1),(r,100),(r,1),(r_true,100)]` with `r_true=10, r=100`
-- **Methods:** `['Polyak Subgradient','Levenberg-Marquardt (ours)','Gauss-Newton']`
-- **Iterations:** 500
-- **Runner:** `run_nonegative_least_squares_experiments(...)`
-- **Output:** `$SAVE_PATH/experiment_results/polyak/nonneg_ls/`
+- **Problem:** Nonnegative least squares, matrix and tensor sensing.
+- **Setups:** `[(r_true,1),(r,100),(r,1),(r_true,100)]` with `r_true=10, r=100 (r_true=2, r=5) for matrix/tensor` 
+- **Methods:** `['Polyak Subgradient','Levenberg-Marquardt (ours)'`. Add competitors if needed
+- **Iterations:** 500 or 1000
+- **Runner:** `run_nonegative_least_squares_experiments(...)` or `run_matrix_tensor_experiments(...)`. `Identity=true` is factorization problem. 
+`loss_ord=1` for l1-norm, `loss_ord=0.5` for l2-norm, `loss_ord=2` for l2-norm squared.
+- **Output:** `$save_dir/experiment_results/polyak/`
+
+
 
 ### Experiment 2: Hyperparameter Sensitivity
 
 - **Focus:** Median iterations vs. γ for quantiles `q=0.95,0.96,0.97`
 - **Grid:** `gammas=[10^i,...]`, `lambdas=[1e-5]`, `tests=[(2,1),(2,100),(5,100)]`
-- **Runner:** Loop over `(corr_level, r,kappa, q, γ, λ)`, collect medians into `to_be_plotted`, then:
+- **Runner:** Loop over `(corr_level, r,kappa, q, γ, λ)` and call `run_matrix_tensor_experiments.py`, collect medians into `to_be_plotted`, then:
   ```python
   plot_results_sensitivity(to_be_plotted, ...)
   ```
-- **Output:** `$SAVE_PATH/experiment_results/hyperparameter_sensitivity/`
+- **Output:** `$save_dir/experiment_results/hyperparameter_sensitivity/`
 
 ### Experiment 3: Sensing with Outliers
 
 - **Goal:** Heatmaps of success ratios over `(m, p_fail)`
 - **Runner:** `run_matrix_tensor_experiments.py` + `plot_transition_heatmap`
-- **Output:** `$SAVE_PATH/experiment_results/outliers_vs_measurements/`
+- **Output:** `save_dir/experiment_results/outliers_vs_measurements/`
 
 ## Notes
 
