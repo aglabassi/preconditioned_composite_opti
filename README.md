@@ -10,7 +10,7 @@ We evaluate recovery of nonnegative least squares, low-rank matrices and tensor 
 - **Gauss–Newton**
 - **Levenberg–Marquardt (ours)**
 
-All experiments generate synthetic data, initialize factors, run each method for a fixed number of iterations (or until convergence), and save both raw losses and summary plots.
+All experiments generate synthetic data, initialize factors, run each method for a fixed number of iterations, and save both raw losses and summary plots.
 
 ## Requirements
 
