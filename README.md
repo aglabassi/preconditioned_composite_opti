@@ -94,7 +94,7 @@ Open `main.ipynb` and execute the following sections in order:
 
 ### Experiment 2: Hyperparameter Sensitivity
 
-- **Focus:** Median iterations vs. γ for quantiles `q=0.95,0.96,0.97`
+- **Focus:** Median iterations vs. γ for hyperparameters `q=0.95,0.96,0.97`
 - **Grid:** `gammas=[10^i,...]`, `lambdas=[1e-5]`, `tests=[(2,1),(2,100),(5,100)]`
 - **Runner:** Loop over `(corr_level, r,kappa, q, γ, λ)` and call `run_matrix_tensor_experiments.py`, collect medians into `to_be_plotted`, then:
   ```python
