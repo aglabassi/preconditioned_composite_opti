@@ -67,28 +67,6 @@ run_matrix_tensor_sensing_experiments(..., experiment_setups, ...)
 run_nonegative_least_squares_experiments(..., experiment_setups, ...)
 ```
 
-Each tuple drives generation of data, initialization, and method runs.
-
-### `to_be_plotted` (hyperparameter sensitivity)
-
-A nested dict describing median iteration counts over methods and hyperparameter grids:
-
-```python
-Dict[
-  ProblemKey,                    # e.g. corruption level or dummy string
-  Dict[
-    MethodName,                  # e.g. 'Polyak Subgradient'
-    np.ndarray(shape=(n_lambdas,n_gammas), dtype=object)
-      # each entry = (median_iters, (lower_5%, upper_95%))
-  ]
-]
-```
-
-Fed to:
-
-```python
-plot_results_sensitivity(to_be_plotted, ...)
-```
 
 ## Running the Experiments
 
@@ -97,7 +75,7 @@ Open `main.ipynb` and execute the following sections in order:
 ### Experiment 0: Introduction Example
 
 - **Model:** Symmetric matrix factorization
-- **Settings:** `n1=n2=50`, `r_true=2`, `r=5`, `tensor=False`, `symmetric=True`, `Identity=True`
+- **Settings:** `n1=n2=50`, `r_true=2`, `r=5`, `tensor=False`, `symmetric=True`, `Identity=True`. Identity set to False creates an instance of sensing with IID Gaussians properly normalized.
 - **Setups:** `[(r,1)]` with `r_true=2`. This is the overparameterized regime.
 - **Runner:** `run_matrix_tensor_sensing_experiments(...)` with Polyak stepsizes until divergence
 - **Output:** `$save_dir/experiment_results/polyak/`
