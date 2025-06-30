@@ -99,7 +99,8 @@ Open `main.ipynb` and execute the following sections in order:
 ### Experiment 0: Introduction Example
 
 - **Model:** Symmetric matrix factorization
-- **Settings:** `n1=n2=50`, `r_true=2`, `tensor=False`, `symmetric=True`
+- **Settings:** `n1=n2=50`, `r_true=2`, `r=5`, `tensor=False`, `symmetric=True`, `Identity=True`
+- **Setups:** `[(r,1)]` with `r_true=2`. This is the overparameterized regime.
 - **Runner:** `run_matrix_tensor_sensing_experiments(...)` with Polyak stepsizes until divergence
 - **Output:** `$save_dir/experiment_results/polyak/`
 
@@ -133,7 +134,6 @@ Open `main.ipynb` and execute the following sections in order:
 
 ## Notes
 
-- If you need to re-run an experiment without stale logs, delete the corresponding `.pkl` or log files under `experiment_results/` before executing.
 - Feel free to modify any parameter blocks in `main.ipynb` for custom sweeps.
 
 ---
