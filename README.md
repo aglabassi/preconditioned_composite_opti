@@ -55,7 +55,7 @@ All experiments generate synthetic data, initialize factors, run each method for
 
 ### `experiment_setups`
 
-A **list of ****\`\`**** tuples** specifying problem instances:
+A **list of pairs** specifying the problem's regime:
 
 - `r`: rank of factors. Overparameterization when r > r_true.
 - `κ`: condition number of ground truth.
