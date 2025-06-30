@@ -1,10 +1,12 @@
 #Preconditioned subgradient for matrix & tensor sensing experiments
 
-This repository contains the code and notebooks for our suite of experiments on matrix and tensor sensing using subgradient, Gauss–Newton, and Levenberg–Marquardt methods.
+This repository contains the code and notebooks for our suite of experiments for our paper "Preconditioned subgradient method for composite optimization:
+overparameterization and fast convergence".
 
 ## Description
 
-We evaluate recovery of low-rank matrices and tensors under various conditions (rank, condition number, corruption, quantiles) using a variety of iterative methods:
+We evaluate recovery of nonnegative least squares, low-rank matrices and tensor sensing, under ill-conditioning and overparameterization
+ using a variety of iterative methods, including:
 
 - **Polyak Subgradient**
 - **Gauss–Newton**
@@ -17,26 +19,40 @@ All experiments generate synthetic data, initialize factors, run each method for
 - **Python:** 3.11.11
 - **CUDA:** 12.4 (for GPU support)
 - **PyTorch:** 2.5.1 (built with CUDA 12.4)
-- **Dependencies:** NumPy, SciPy, Matplotlib, Jupyter
+- **NumPy:** 1.26.4
 
-Linear systems are solved via Conjugate Gradient (max 100 iterations, tolerance = 1e-25) using implicit \(\nabla F^T\nabla F\) actions except in nonnegative least squares (direct diagonal inversion).
+Linear systems are solved via Conjugate Gradient (max 100 iterations, tolerance = 1e-25) using implicit \(\nabla F^T\nabla F\) actions except in nonnegative least squares (direct closed-form computation available).
+
+**System Packages (for LaTeX support in plots and notebooks):**
+
+| Package                   | Version (Ubuntu 22.04 LTS, June 2024) |
+|---------------------------|----------------------------------------|
+| cm-super                  | 0.3.4-12                               |
+| dvipng                    | 1.17-1                                 |
+| texlive-latex-extra       | 2021.20220204-1                        |
+| texlive-latex-recommended | 2021.20210418-1                        |
 
 ## Installation
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/yourusername/matrix-tensor-sensing.git
-   cd matrix-tensor-sensing
+   git clone https://github.com/aglabassi/preconditioned_composite_opti repo
+   cd repo
    ```
-2. **Create** and **activate** the environment (Conda recommended):
+2. **Install System Dependencies (for LaTeX support, e.g., math rendering in plotting or Jupyter):**
+   Install via:
+   ```
+   bash
+   sudo apt install cm-super dvipng texlive-latex-extra texlive-latex-recommended
+   ```
+3. **Create** and **activate** the environment (Conda recommended):
    ```bash
    conda env create -f environment.yml -n mts
    conda activate mts
    ```
-3. **Install** the package in editable mode:
+4. **Install** the package in editable mode:
    ```bash
    pip install -e .
-   ```
 
 ## Configuration
 
