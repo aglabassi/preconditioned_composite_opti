@@ -1,6 +1,4 @@
-#Preconditioned subgradient for matrix & tensor sensing experiments
-
-This repository contains the code and notebooks for our suite of experiments for our paper "Preconditioned subgradient method for composite optimization:
+This repository contains the code for our suite of experiments for the paper "Preconditioned subgradient method for composite optimization:
 overparameterization and fast convergence".
 
 ## Description
