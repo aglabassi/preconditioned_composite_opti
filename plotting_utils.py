@@ -346,7 +346,9 @@ def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, k
             Line2D([0], [0], color=method_colors[method], lw=2) for method in methods
         ]
         
-    method_labels = methods
+    method_labels = []
+    for method in methods:
+        method_labels.append(method if method != 'Levenberg-Marquardt (ours)' else 'LMM (ours)')
 
     # Markers legend (parameterization), markers in black
     marker_handles = [
@@ -572,7 +574,7 @@ def plot_results_sensitivity(to_be_plotted, corr_level, q, r_test, c,
             noise_high = [noise[j][1] for j in range(len(gammas))]
     
             # Plot scatter points, connecting lines, and noise shading
-            plt.plot(gammas, data, label=method, color=color, linestyle='-', linewidth=2, marker='o')
+            plt.plot(gammas, data, label=(method if method != 'Levenberg-Marquardt (ours)' else 'LMM (ours)'), color=color, linestyle='-', linewidth=2, marker='o')
             plt.fill_between(gammas, noise_low, noise_high, color=color, alpha=0.2)
     
         # Set labels and title with LaTeX rendering
