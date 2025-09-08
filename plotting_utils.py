@@ -63,7 +63,7 @@ def collect_compute_mean(keys, loss_ord, r_true, res, methods, problem, base_dir
 
 
 def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, kappa, num_dots=0.1, intro_plot=False, symmetric=True, 
-                            tensor=False,had=False, d=None,loss2=None, stds2=None, times=None, noneg=True, fixed_ylim=False, hide_legend=False):
+                            tensor=False,had=False, d=None,loss2=None, stds2=None, times=None, noneg=True, fixed_ylim=False, hide_legend=False,add_opsa=False):
     """
     Plots the losses with distinct styles for methods, parameterizations, and ill-conditioning levels.
 
@@ -99,7 +99,13 @@ def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, k
 
 
     colors = dict()
-    
+    one_m = list(losses.keys())[0]
+    if add_opsa:
+        losses['OPSA($\lambda=10^{-8}$)'] = {}
+        stds['OPSA($\lambda=10^{-8}$)'] = {}
+        for k in losses[one_m]:
+            losses['OPSA($\lambda=10^{-8}$)'][k] = [0]*len( losses[one_m][k])
+            stds['OPSA($\lambda=10^{-8}$)'][k] = [0]*len( losses[one_m][k])
 
 
     methods_ = list(losses.keys())
