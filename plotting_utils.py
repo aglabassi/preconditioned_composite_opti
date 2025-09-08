@@ -63,7 +63,7 @@ def collect_compute_mean(keys, loss_ord, r_true, res, methods, problem, base_dir
 
 
 def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, kappa, num_dots=0.1, intro_plot=False, symmetric=True, 
-                            tensor=False,had=False, d=None,loss2=None, stds2=None, times=None, noneg=True, fixed_ylim=False):
+                            tensor=False,had=False, d=None,loss2=None, stds2=None, times=None, noneg=True, fixed_ylim=False, hide_legend=False):
     """
     Plots the losses with distinct styles for methods, parameterizations, and ill-conditioning levels.
 
@@ -326,7 +326,7 @@ def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, k
         
     ax.set_yscale('log')
     if fixed_ylim:                     # turn it on/off from the caller
-        ax.set_ylim(1e-14, 1e2)        # bottom, top (log-scale OK)
+        ax.set_ylim(bottom=None, top=fixed_ylim)        # bottom, top (log-scale OK)
 
     # Adding grid lines
     ax.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
@@ -424,10 +424,18 @@ def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, k
             fontsize=18,          # Set the font size of the legend labels to 18
             title_fontsize=20     # Set the font size of the legend title to 20
         )
+        
         ax.add_artist(legend2)
 
-    # Add the first legend back to the axes
     ax.add_artist(legend1)
+    
+    # Hide legends if requested (add this right before plt.tight_layout())
+    if hide_legend:
+        ax.legend().set_visible(False)
+        # Also hide any additional legends added as artists
+        for child in ax.get_children():
+            if str(type(child)) == "<class 'matplotlib.legend.Legend'>":
+                child.set_visible(False)
 
     # Tight layout for better spacing
     plt.tight_layout()
