@@ -326,7 +326,7 @@ def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, k
         
     ax.set_yscale('log')
     if fixed_ylim:                     # turn it on/off from the caller
-        ax.set_ylim(bottom=10**-13, top=fixed_ylim)        # bottom, top (log-scale OK)
+        ax.set_ylim(bottom=10**-14, top=fixed_ylim)        # bottom, top (log-scale OK)
 
     # Adding grid lines
     ax.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
