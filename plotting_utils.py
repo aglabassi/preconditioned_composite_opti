@@ -605,7 +605,8 @@ def plot_results_sensitivity(to_be_plotted, corr_level, q, r_test, c,
         plt.xticks(fontsize=font_size//2)
         plt.yticks(fontsize=font_size//2)
         plt.grid(True, which='both', linestyle='--', alpha=0.7)
-        plt.legend(fontsize=font_size//2, loc="lower right")
+        if q == 0.95 and c ==1:
+            plt.legend(fontsize=font_size//2, loc="lower right")
     
         # Save the plot to a file
         save_path = os.path.join(base_dir, f"plot_{problem}_{q}_{corr_level}_{r_test}_{c}_{lambda_}.pdf")
