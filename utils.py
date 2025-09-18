@@ -544,7 +544,7 @@ def compute_stepsize_and_damping(
     
     elif method == 'Scaled gradient($\lambda=10^{-8}$)':
         damping = 1e-8
-        stepsize = constant_stepsize 
+        stepsize = 0.1
     
     elif method == 'Precond. gradient':
         # Example: damping depends on sqrt(h_c_x)
