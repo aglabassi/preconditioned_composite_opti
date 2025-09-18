@@ -543,8 +543,8 @@ def compute_stepsize_and_damping(
         stepsize =  h_c_x / (torch.sum(aux_x**2) + torch.sum(aux_y**2) )
     
     elif method == 'Scaled gradient($\lambda=10^{-8}$)':
-        damping = 1e-8
-        stepsize = 0.1
+        damping = 1e-3
+        stepsize = 0.5
     
     elif method == 'Precond. gradient':
         # Example: damping depends on sqrt(h_c_x)
