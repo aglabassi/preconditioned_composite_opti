@@ -171,7 +171,7 @@ def plot_losses_with_styles(losses, stds, r_true, loss_ord, base_dir, problem, k
 
             # Determine the index where errors have converged to machine epsilon
             convergence_threshold = 1e-13 if not had else 1e-13  # Slightly above machine epsilon to account for numerical errors
-            divergence_threshold  = 1e3
+            divergence_threshold  = 1e10
             converged_indices = np.where(errs <= convergence_threshold)[0]
             diverged_indices = np.where(errs  >= divergence_threshold)[0]
             if converged_indices.size > 0:
